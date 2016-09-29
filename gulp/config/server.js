@@ -1,0 +1,4 @@
+var server = {
+	'ip': '',
+	'port': ''
+};
