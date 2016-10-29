@@ -1,7 +1,7 @@
-/app/bootstrap.php.cache
-/app/cache/*
-app/cache/*
-!app/cache/.gitkeep
+/var/bootstrap.php.cache
+/var/cache/*
+var/cache/*
+!var/cache/.gitkeep
 /app/config/parameters.yml
 /app/logs/*
 !app/logs/.gitkeep
@@ -37,7 +37,6 @@ cron.sh
 .autodeploy
 /web/autodeploy.php
 cron.sh
-README.md
 delete-cache-script.sh
 web/delete-cache.php
 app/SymfonyRequirements.php
