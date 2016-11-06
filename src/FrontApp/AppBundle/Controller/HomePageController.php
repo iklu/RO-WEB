@@ -1,18 +1,15 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace FrontApp\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class DefaultController extends AbstractController
+class HomePageController extends AbstractController
 {
-    /**
-     * @Route("/" , name="homepage")
-     */
     public function indexAction()
     {
-        return $this->render('AppBundle:Default:index.html.twig', array(
+        return $this->render('FrontAppAdBundle:Default:index.html.twig', array(
             // ...
         ));
     }

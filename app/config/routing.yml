@@ -1,3 +1,2 @@
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+ro_app:
+    resource: "@FrontAppAppBundle/Resources/config/routing.yml"
