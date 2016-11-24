@@ -14,7 +14,7 @@ class DefaultController extends AbstractController
      */
     public function indexAction()
     {
-        return $this->render('AppBundle:Default:index.html.twig', array(
+        return $this->render('FrontAppAppBundle:Default:index.html.twig', array(
             // ...
         ));
     }

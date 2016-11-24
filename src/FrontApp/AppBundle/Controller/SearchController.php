@@ -12,7 +12,7 @@ class SearchController extends AbstractController
     public function indexAction()
     {
         $this->params["search"] = "search";
-        return $this->render('AppBundle:Search:index.html.twig', $this->params);
+        return $this->render('FrontAppAppBundle:Search:index.html.twig', $this->params);
     }
 
 }

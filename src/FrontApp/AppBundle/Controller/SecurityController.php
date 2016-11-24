@@ -37,7 +37,7 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('AppBundle:Security:login.html.twig', array(
+        return $this->render('FrontAppAppBundle:Security:login.html.twig', array(
             'last_username' => $lastUsername,
             'error'         => $error,
         ));
@@ -48,7 +48,7 @@ class SecurityController extends AbstractController
      */
     public function dashboardAction()
     {
-        return $this->render('AppBundle:Security:dashboard.html.twig', array(
+        return $this->render('FrontAppAppBundle:Security:dashboard.html.twig', array(
             // ...
         ));
     }
