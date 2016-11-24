@@ -1,24 +1,57 @@
-# To get started with security, check out the documentation:
-# http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+         FOS\UserBundle\Model\UserInterface: sha512
+         Symfony\Component\Security\Core\User\User:
+             algorithm: bcrypt
+             cost: 12
 
-    # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_ADMIN
+        ROLE_COMPANY_ADMIN: ROLE_COMPANY_ADMIN
+        ROLE_AMBASSADOR: ROLE_AMBASSADOR
+
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    ovidiu:
+                        password: $2a$12$77DgS/ul7u4nEC1./69ZP.CwyQ5uCzFPMMuy.m19yIgDb.u0WMe2G
+                        roles: 'ROLE_USER'
+                    remus:
+                        password: $2a$12$77DgS/ul7u4nEC1./69ZP.CwyQ5uCzFPMMuy.m19yIgDb.u0WMe2G
+                        roles: 'ROLE_USER'
+
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
+        secured_area:
+            pattern: ^/secured/
+            simple_form:
+                authenticator: app.security.api_user_authenticator
+                check_path: /secured/login_check
+                login_path: /secured/login/
+                default_target_path: /secured/dashboard/
+                always_use_default_target_path: true
+                use_referer: false
+                require_previous_session: false
+#            http_basic:
+#                realm: 'Login'
+#                provider: in_memory
+            logout:
+                path:   /secured/logout
+                target: /
+                invalidate_session: true
             anonymous: ~
-            # activate different ways to authenticate
 
-            # http_basic: ~
-            # http://symfony.com/doc/current/book/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: ~
-            # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
+    access_control:
+        - { path: ^/secured/account-details/, role: ROLE_USER }
+        - { path: ^/secured/dashboard/, role: ROLE_USER }
+        - { path: ^/secured/login/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/secured/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/secured/check-facebook, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/secured/check-google, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/index, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -1,3 +1,0 @@
-front_app_data_homepage:
-    path:     /
-    defaults: { _controller: FrontAppDataBundle:Default:index }
