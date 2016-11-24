@@ -4,6 +4,22 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    app.api_service:
+        class: FrontApp\DataBundle\Services\ApiService
+        arguments: ["@service_container"]
+
+    app.facebook_authentication:
+        class: FrontApp\DataBundle\Services\FacebookAuthentication
+        arguments: ["@service_container"]
+
+    app.user_session:
+        class: FrontApp\DataBundle\Services\UserSession
+        arguments: ["@session", "@request_stack"]
+
+    app.security:
+        class: FrontApp\DataBundle\Services\SecurityService
+        arguments: ["@service_container"]
+
+    app.security.api_user_authenticator:
+        class: FrontApp\DataBundle\Security\Authenticator\ApiAuthenticator
+        arguments: ["@app.api_service", "@app.security", "@app.user_session", "@request_stack", "%api_address%"]

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace FrontApp\AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 

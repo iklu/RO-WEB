@@ -6,10 +6,10 @@
  * Time: 10:20
  */
 
-namespace DataBundle\Services;
+namespace FrontApp\DataBundle\Services;
 
 
-use DataBundle\Utils\Curl;
+use FrontApp\DataBundle\Utils\Curl;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class ApiService

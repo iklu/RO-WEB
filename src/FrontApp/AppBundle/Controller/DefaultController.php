@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace FrontApp\AppBundle\Controller;
 
 use AppBundle\DataBundle\Model\Cache\Friends;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -6,7 +6,7 @@
  * Time: 17:02
  */
 
-namespace DataBundle\Services;
+namespace FrontApp\DataBundle\Services;
 
 use AppBundle\Model\Common;
 use Symfony\Component\HttpFoundation\Cookie;

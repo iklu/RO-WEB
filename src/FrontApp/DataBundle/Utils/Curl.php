@@ -1,6 +1,6 @@
 <?php
 
-namespace DataBundle\Utils;
+namespace FrontApp\DataBundle\Utils;
 /**
  * Created by PhpStorm.
  * User: ovidiu

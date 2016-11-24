@@ -1,5 +1,5 @@
 <?php
-namespace DataBundle\Services;
+namespace FrontApp\DataBundle\Services;
 
 use Facebook\Facebook;
 use Facebook\Exceptions\FacebookResponseException;

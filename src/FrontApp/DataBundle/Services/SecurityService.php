@@ -6,7 +6,7 @@
  * Time: 17:20
  */
 
-namespace DataBundle\Services;
+namespace FrontApp\DataBundle\Services;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;

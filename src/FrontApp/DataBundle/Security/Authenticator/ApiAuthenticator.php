@@ -1,9 +1,9 @@
 <?php
 
-namespace DataBundle\Security\Authenticator;
-use DataBundle\Services\ApiService;
-use DataBundle\Services\SecurityService;
-use DataBundle\Services\UserSession;
+namespace FrontApp\DataBundle\Security\Authenticator;
+use FrontApp\DataBundle\Services\ApiService;
+use FrontApp\DataBundle\Services\SecurityService;
+use FrontApp\DataBundle\Services\UserSession;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface;
