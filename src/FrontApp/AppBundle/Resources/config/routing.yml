@@ -1,0 +1,3 @@
+app:
+    resource: "@FrontAppAppBundle/Controller/"
+    type:     annotation
