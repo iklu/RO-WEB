@@ -1,0 +1,15 @@
+app:
+    resource: "@FrontAppBundle/Controller/"
+    type:     annotation
+
+security:
+    resource: "@FrontSecurityBundle/Controller/"
+    type:     annotation
+
+ad:
+    resource: "@FrontAdBundle/Controller/"
+    type:     annotation
+
+category:
+    resource: "@FrontCategoryBundle/Controller/"
+    type:     annotation
