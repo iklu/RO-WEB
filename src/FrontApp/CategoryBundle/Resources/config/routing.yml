@@ -1,3 +1,0 @@
-front_app_category_homepage:
-    path:     /
-    defaults: { _controller: FrontAppCategoryBundle:Default:index }

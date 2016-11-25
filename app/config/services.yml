@@ -5,21 +5,21 @@ parameters:
 
 services:
     app.api_service:
-        class: FrontApp\DataBundle\Services\ApiService
+        class: Front\DataBundle\Services\ApiService
         arguments: ["@service_container"]
 
     app.facebook_authentication:
-        class: FrontApp\DataBundle\Services\FacebookAuthentication
+        class: Front\SecurityBundle\Services\FacebookAuthentication
         arguments: ["@service_container"]
 
     app.user_session:
-        class: FrontApp\DataBundle\Services\UserSession
+        class: Front\SecurityBundle\Services\UserSession
         arguments: ["@session", "@request_stack"]
 
     app.security:
-        class: FrontApp\DataBundle\Services\SecurityService
+        class: Front\SecurityBundle\Services\SecurityService
         arguments: ["@service_container"]
 
     app.security.api_user_authenticator:
-        class: FrontApp\DataBundle\Security\Authenticator\ApiAuthenticator
+        class: Front\SecurityBundle\Security\Authenticator\ApiAuthenticator
         arguments: ["@app.api_service", "@app.security", "@app.user_session", "@request_stack", "%api_address%"]

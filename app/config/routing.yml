@@ -1,2 +1,6 @@
+front_security:
+    resource: "@FrontSecurityBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ro_app:
-    resource: "@FrontAppAppBundle/Resources/config/routing.yml"
+    resource: "@FrontAppBundle/Resources/config/routing.yml"
