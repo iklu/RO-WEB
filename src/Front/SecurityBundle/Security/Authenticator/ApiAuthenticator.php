@@ -71,10 +71,10 @@ class ApiAuthenticator implements SimpleFormAuthenticatorInterface
         /** @var  $sessionData */
         $sessionData = $this->userSession;
 
-        if (isset($data['response']['message']['username']) && ($data['response']['message']['role'] > 0)) {
+        if (isset($data['response']['message']['username']) && ($data['response']['message']['roles'] > 0)) {
 
             $users["username"] = $data['response']['message']['username'];
-            $users["roles"] =  $data['response']['message']['role'];
+            $users["roles"] =  $data['response']['message']['roles'];
 
             //Set MyMeineke session
             $sessionData->setMyMeineke($this->apiAddress, $data);

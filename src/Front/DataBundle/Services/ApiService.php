@@ -51,7 +51,7 @@ class ApiService
         $password = $request->request->get("_password");
 
         $postValues = array(
-            "email" => $username,
+            "username" => $username,
             "password" => $password
         );
 
