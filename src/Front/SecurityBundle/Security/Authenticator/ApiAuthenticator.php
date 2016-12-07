@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Authentication\SimpleAuthenticatorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Http\Authentication\SimpleFormAuthenticatorInterface;
 
@@ -92,13 +93,13 @@ class ApiAuthenticator implements SimpleFormAuthenticatorInterface
                 $sessionData->setFlashMessage('warning', 'The email and password you entered don\'t match');
 
             }elseif(isset($data['status']) && $data['status'] != 200){
+
                 //Set Email in session for Resend Activation Link
                 $sessionData->setEmailConfirm($this->request->get("email"));
                 $message = $data['response']['message'];
-                $sessionData->setFlashMessage('warning',    "$message");
+                throw new CustomUserMessageAuthenticationException($message);
             }
         }
-
         throw new AuthenticationException('Invalid username or password');
     }
 
