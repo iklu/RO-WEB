@@ -1,0 +1,8 @@
+services:
+    request.helper:
+        class: Front\CoreBundle\Helper\Request\RequestHelper
+        arguments: ['@request_stack']
+
+    security.helper:
+        class: Front\CoreBundle\Helper\Security\SecurityHelper
+        arguments: ['@security.token_storage', '@request.helper']

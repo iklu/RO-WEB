@@ -2,9 +2,10 @@
 
 namespace Front\AppBundle\Controller;
 
+use Front\CoreBundle\Controller\Front\AbstractFrontController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class SearchController extends AbstractController
+class SearchController extends AbstractFrontController
 {
     /**
      * @Route("/search/", name="search")

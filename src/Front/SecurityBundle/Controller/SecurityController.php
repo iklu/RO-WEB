@@ -2,11 +2,11 @@
 
 namespace Front\SecurityBundle\Controller;
 
-use Front\AppBundle\Controller\AbstractController;
+use Front\CoreBundle\Controller\Front\AbstractFrontController;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
-class SecurityController extends AbstractController
+class SecurityController extends AbstractFrontController
 {
     /**
      * @Route("/secured/login_check", name="loginCheck")
@@ -48,6 +48,10 @@ class SecurityController extends AbstractController
      */
     public function dashboardAction()
     {
+        
+
+    //    var_dump($this->getAuthenticatedClient()) ;
+
         return $this->render('FrontSecurityBundle:Security:dashboard.html.twig', array(
             // ...
         ));
