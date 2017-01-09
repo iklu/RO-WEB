@@ -25,29 +25,9 @@ use Symfony\Component\Security\Http\Authentication\SimpleFormAuthenticatorInterf
 class ApiAuthenticator implements SimpleFormAuthenticatorInterface
 {
     /**
-     * @var ApiService
-     */
-    private $service;
-
-    /**
      * @var SecurityService
      */
     private $security;
-
-    /**
-     * @var UserSession
-     */
-    private $userSession;
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var
-     */
-    private $apiAddress;
 
     /**
      * @var UserPasswordEncoderInterface
@@ -56,20 +36,12 @@ class ApiAuthenticator implements SimpleFormAuthenticatorInterface
 
     /**
      * ApiAuthenticator constructor.
-     * @param ApiService $service
      * @param SecurityService $security
-     * @param UserSession $userSession
-     * @param RequestStack $request
-     * @param $apiAddress
      * @param UserPasswordEncoderInterface $encoder
      */
-    public function __construct(ApiService $service, SecurityService $security, UserSession $userSession, RequestStack $request, $apiAddress, UserPasswordEncoderInterface $encoder)
+    public function __construct(SecurityService $security, UserPasswordEncoderInterface $encoder)
     {
-        $this->request = $request->getCurrentRequest();
-        $this->service = $service;
         $this->security = $security;
-        $this->userSession = $userSession;
-        $this->apiAddress = $apiAddress;
         $this->encoder = $encoder;
     }
 
@@ -77,69 +49,17 @@ class ApiAuthenticator implements SimpleFormAuthenticatorInterface
     {
 
         $user = $userProvider->loadUserByUsername($token->getUsername());
-//        try {
-//            $user = $userProvider->loadUserByUsername($token->getUsername());
-//        } catch (UsernameNotFoundException $e) {
-//            // CAUTION: this message will be returned to the client
-//            // (so don't put any un-trusted messages / error strings here)
-//            throw new CustomUserMessageAuthenticationException('Username not found');
-//        }
-
-
 
         $passwordValid = $this->encoder->isPasswordValid($user, $token->getCredentials());
 
-        if (!$passwordValid) {
-            exit;
-            throw new CustomUserMessageAuthenticationException('U');
-        }
-
-
-
-
-
-        return new UsernamePasswordToken(
-            $user->getUsername(),
-            $user->getPassword(),
-            $providerKey,
-            $user->getRoles()
-        );
-
-        /** @var array $data Provider */
-        $data = $this->service->getLoginFromApi();
-
-        /** @var  $sessionData */
-        $sessionData = $this->userSession;
-
-        if (isset($data['response']['message']['username']) && ($data['response']['message']['roles'] > 0)) {
-
-            $users["username"] = $data['response']['message']['username'];
-            $users["roles"] =  $data['response']['message']['roles'];
-
-            //Set MyMeineke session
-            $sessionData->setMyMeineke($this->apiAddress, $data);
-
-            //Set user session
-            $sessionData->setLoginUserData($data);
-            
+        if ($passwordValid) {
             $login = $this->security;
-            $initiate = $login->getUsernamePasswordToken($users);
+            $initiate = $login->getUsernamePasswordToken($user);
+
             return $initiate;
-        } else {
-
-            if(isset($data['status']) && $data['status'] == 404){
-
-                $sessionData->setFlashMessage('warning', 'The email and password you entered don\'t match');
-
-            }elseif(isset($data['status']) && $data['status'] != 200){
-
-                //Set Email in session for Resend Activation Link
-                $sessionData->setEmailConfirm($this->request->get("email"));
-                $message = $data['response']['message'];
-                throw new CustomUserMessageAuthenticationException($message);
-            }
         }
-        throw new AuthenticationException('Invalid username or password');
+
+        throw new CustomUserMessageAuthenticationException('Invalid username or password');
     }
 
     public function supportsToken(TokenInterface $token, $providerKey)

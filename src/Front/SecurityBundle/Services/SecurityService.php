@@ -10,6 +10,7 @@ namespace Front\SecurityBundle\Services;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class SecurityService
 {
@@ -39,10 +40,10 @@ class SecurityService
         return $token;
     }
 
-    public function getUsernamePasswordToken(array $user){
+    public function getUsernamePasswordToken(UserInterface $user){
 
         /** @var  $token */
-        $token = new UsernamePasswordToken($user["username"], null, 'secured_area', $user['roles']);
+        $token = new UsernamePasswordToken($user->getUsername(), $user->getPassword(), 'secured_area', $user->getRoles());
 
         return $token;
     }

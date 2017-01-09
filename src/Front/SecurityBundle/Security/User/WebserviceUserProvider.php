@@ -10,6 +10,9 @@ namespace Front\SecurityBundle\Security\User;
 
 use Front\DataBundle\Services\ApiService;
 use Front\SecurityBundle\Security\User\WebserviceUser;
+use Front\SecurityBundle\Services\UserSession;
+use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -22,9 +25,35 @@ class WebserviceUserProvider implements UserProviderInterface
      */
     private $service;
 
-    public function __construct(ApiService $service)
+    /**
+     * @var UserSession
+     */
+    private $userSession;
+
+    /**
+     * @var RequestStack
+     */
+    private $request;
+
+    /**
+     * @var
+     */
+    private $apiAddress;
+
+    /**
+     * WebserviceUserProvider constructor.
+     * @param ApiService $service
+     * @param UserSession $userSession
+     * @param RequestStack $request
+     * @param $apiAddress
+     */
+    public function __construct(ApiService $service, UserSession $userSession, RequestStack $request, $apiAddress)
     {
         $this->service = $service;
+        $this->request = $request->getCurrentRequest();
+        $this->service = $service;
+        $this->userSession = $userSession;
+        $this->apiAddress = $apiAddress;
     }
 
     public function loadUserByUsername($username)
@@ -32,19 +61,38 @@ class WebserviceUserProvider implements UserProviderInterface
         /** @var array $data Provider */
         $data = $this->service->getLoginFromApi();
 
-        if (isset($data['response']['message']['username']) && ($data['response']['message']['roles'] > 0)) {
+        /** @var  $sessionData */
+        $sessionData = $this->userSession;
 
+        if (isset($data['response']['message']['username']) && ($data['response']['message']['roles'] > 0)) {
             $users["username"] = $data['response']['message']['username'];
             $users["roles"] =  $data['response']['message']['roles'];
             $users["password"] =  $data['response']['message']['password'];
             $users["salt"] =  $data['response']['message']['salt'];
 
-            return new WebserviceUser( $users["username"], $users["password"], $users["salt"],  $users["roles"]);
-        }
+            //Set MyMeineke session
+            $sessionData->setMyMeineke($this->apiAddress, $data);
 
-        throw new UsernameNotFoundException(
-            sprintf('Username "%s" does not exist.', $username)
-        );
+            //Set user session
+            $sessionData->setLoginUserData($data);
+
+            return new WebserviceUser( $users["username"], $users["password"], $users["salt"],  $users["roles"]);
+        } else {
+            if(isset($data['status']) && $data['status'] == 404){
+
+                $sessionData->setFlashMessage('warning', 'The email and password you entered don\'t match');
+
+            }elseif(isset($data['status']) && $data['status'] != 200){
+
+                //Set Email in session for Resend Activation Link
+                $sessionData->setEmailConfirm($this->request->get("email"));
+                $message = $data['response']['message'];
+                throw new CustomUserMessageAuthenticationException($message);
+            }
+        }
+        
+        throw new CustomUserMessageAuthenticationException('Invalid username or password');
+
     }
 
     public function refreshUser(UserInterface $user)
