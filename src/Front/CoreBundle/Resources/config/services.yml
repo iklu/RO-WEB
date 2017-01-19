@@ -6,3 +6,11 @@ services:
     security.helper:
         class: Front\CoreBundle\Helper\Security\SecurityHelper
         arguments: ['@security.token_storage', '@request.helper']
+
+    flash.helper:
+        class: Front\CoreBundle\Helper\Flash\FlashHelper
+        arguments: ['@session', '@translator.helper']
+
+    translator.helper:
+        class: Front\CoreBundle\Helper\Translator\TranslatorHelper
+        arguments: ['@translator']

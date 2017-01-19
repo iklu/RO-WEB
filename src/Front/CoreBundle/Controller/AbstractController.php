@@ -2,6 +2,7 @@
 
 namespace Front\CoreBundle\Controller;
 
+use Front\CoreBundle\Helper\Flash\FlashHelperInterface;
 use Front\CoreBundle\Helper\Request\RequestHelperInterface;
 use Front\CoreBundle\Helper\Security\SecurityHelperInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -21,5 +22,10 @@ class AbstractController extends Controller
     public function getSecurityHelper() : SecurityHelperInterface
     {
         return $this->get('security.helper');
+    }
+
+    public function getFlashHelper() : FlashHelperInterface
+    {
+        return $this->get('flash.helper');
     }
 }

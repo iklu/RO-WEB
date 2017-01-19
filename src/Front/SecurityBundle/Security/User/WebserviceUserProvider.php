@@ -64,7 +64,7 @@ class WebserviceUserProvider implements UserProviderInterface
         /** @var  $sessionData */
         $sessionData = $this->userSession;
 
-        if (isset($data['response']['message']['username']) && ($data['response']['message']['roles'] > 0)) {
+        if (isset($data['response']['message']['username']) && !empty($data['response']['message']['roles'])) {
             $users["username"] = $data['response']['message']['username'];
             $users["roles"] =  $data['response']['message']['roles'];
             $users["password"] =  $data['response']['message']['password'];
@@ -88,10 +88,12 @@ class WebserviceUserProvider implements UserProviderInterface
                 $sessionData->setEmailConfirm($this->request->get("email"));
                 $message = $data['response']['message'];
                 throw new CustomUserMessageAuthenticationException($message);
+            }elseif(empty($data['response']['message']['roles'])){
+                throw new CustomUserMessageAuthenticationException('Not sufficient privileges.');
             }
         }
         
-        throw new CustomUserMessageAuthenticationException('Invalid username or password');
+        throw new CustomUserMessageAuthenticationException('Error authenticating.');
 
     }
 

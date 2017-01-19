@@ -13,8 +13,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 abstract class AbstractFrontController extends AbstractController implements FrontControllerInterface
 {
 
+    public $params = array();
+
     protected function getAuthenticatedClient()
     {
         return $this->getSecurityHelper()->getAuthenticatedClient();
     }
+    
 }

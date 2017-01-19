@@ -3,8 +3,13 @@
 namespace Front\SecurityBundle\Controller;
 
 use Front\CoreBundle\Controller\Front\AbstractFrontController;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class SecurityController extends AbstractFrontController
 {
@@ -14,6 +19,62 @@ class SecurityController extends AbstractFrontController
     public function loginCheckAction()
     {
         //DO NOT DELETE THIS (Symfony Firewall)
+    }
+
+    /**
+     * @Route("/register/", name="register")
+     */
+    public function registerAction(Request $request)
+    {
+        return $this->render('FrontSecurityBundle:Security:register.html.twig', $this->params);
+    }
+
+
+    /**
+     * @Route("/secured/register/", name="secured_register")
+     */
+    public function securedRegisterAction(Request $request)
+    {
+        try{
+            if(!$request->isMethod('POST'))
+                throw new AccessDeniedException("You are not allowed here");
+        }catch(AccessDeniedException $e){
+            $response = new Response($e->getMessage());
+           return $response;
+        }
+
+        $response = [];
+        try{
+            // Create a client with a base URI
+            $client = new Client(['base_uri' => $this->getParameter("api_address")]);
+            $post  = $client->request("POST", 'account/register/', [
+                "form_params"=> [
+                    "username" => $request->request->get("username"),
+                    "email" => $request->request->get("email"),
+                    "password"=> $request->request->get("password"),
+                    "confirmPassword"=> $request->request->get("confirmPassword"),
+                ],
+                "headers"=>[
+                    "Accept" =>"application/json"
+                ]
+            ]);
+
+            if($post->getStatusCode() == Response::HTTP_OK && $post->hasHeader('Content-Length')){
+                $body = (string) $post->getBody()->getContents();
+                $response = \GuzzleHttp\json_decode($body , true);
+            }
+
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                $body =   (string)($e->getResponse()->getBody()->getContents());
+                $response = \GuzzleHttp\json_decode($body , true);
+                $e->getResponse()->getHeader('content-type');
+               // $this->getFlashHelper()->addError($body);
+            }
+        }
+        $this->params["response"] = $response;
+ 
+        return $this->render('FrontSecurityBundle:Security:register.html.twig', $this->params);
     }
 
     /**
@@ -48,12 +109,31 @@ class SecurityController extends AbstractFrontController
      */
     public function dashboardAction()
     {
-        
 
-    //    var_dump($this->getAuthenticatedClient()) ;
+        $this->params["body"] = "";
+        $body = "";
+        try{
+            // Create a client with a base URI
+            $client = new Client(['base_uri' => $this->getParameter("api_address")]);
+            // Send a request to https://foo.com/api/test
+            $response = $client->get("cars/");
 
-        return $this->render('FrontSecurityBundle:Security:dashboard.html.twig', array(
-            // ...
-        ));
+            if($response->hasHeader('Content-Length')){
+                $body = (string) $response->getBody()->getContents();
+            }
+
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                $stringBody =   (string)($e->getResponse()->getBody()->getContents());
+
+                $response = \GuzzleHttp\json_decode($stringBody , true);
+
+
+            }
+        }
+
+        $this->params["body"] = $body;
+
+        return $this->render('FrontSecurityBundle:Security:dashboard.html.twig', $this->params);
     }
 }

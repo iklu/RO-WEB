@@ -1,0 +1,73 @@
+{% extends "FrontAppBundle::base.html.twig" %}
+
+{% block title %}AppBundle:Default:register{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Security:register page</h1>
+
+    <div id="container_demo" >
+        <!-- hidden anchor to stop jump http://www.css3create.com/Astuce-Empecher-le-scroll-avec-l-utilisation-de-target#wrap4  -->
+        <a class="hiddenanchor" id="toregister"></a>
+        <a class="hiddenanchor" id="tologin"></a>
+        <div id="wrapper">
+
+            <div id="register" class="animate form">
+                <form method="post"  action="{{ path("secured_register") }}" autocomplete="on">
+                    <h1> Sign up </h1>
+                    <p>
+                        <label for="usernamesignup" class="uname" data-icon="u">Your username</label>
+                        <input id="usernamesignup" name="username"  type="text" placeholder="mysuperusername690" />
+                    </p>
+                    <p>
+                        <label for="emailsignup" class="youmail" data-icon="e" > Your email</label>
+                        <input id="emailsignup" name="email"  type="email" placeholder="mysupermail@mail.com"/>
+                    </p>
+                    <p>
+                        <label for="firstnamesignup" class="youmail" data-icon="e" > Your Firstname</label>
+                        <input id="firstnamesignup" name="firstname"   placeholder="firstname.."/>
+                    </p>
+                    <p>
+                        <label for="lastnamesignup" class="youmail" data-icon="e" > Your Lastname</label>
+                        <input id="lastnamesignup" name="lastname"   placeholder="lastname.."/>
+                    </p>
+                    <p>
+                        <label for="phonesignup" class="youmail" data-icon="e" > Your Phone</label>
+                        <input id="phonesignup" name="phone"   placeholder="0741..."/>
+                    </p>
+                    <p>
+                        <label for="passwordsignup" class="youpasswd" data-icon="p">Your password </label>
+                        <input id="passwordsignup" name="password"  type="password" placeholder="eg. X8df!90EO"/>
+                    </p>
+                    <p>
+                        <label for="passwordsignup_confirm" class="youpasswd" data-icon="p">Please confirm your password </label>
+                        <input id="passwordsignup_confirm" name="confirmPassword"  type="password" placeholder="eg. X8df!90EO"/>
+                    </p>
+                    <p class="signin button">
+                        <input type="submit" value="Sign up"/>
+                    </p>
+                    <p class="change_link">
+                        Already a member ?
+                        <a href="#tologin" class="to_register"> Go and log in </a>
+                    </p>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    {% for violation in  response.violations %}
+        {{ violation.message }} <br>
+    {% endfor %}
+
+    {% for err in  response.message.errorReport %}
+        {{ err }} <br>
+    {% endfor %}
+
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <p class="alert alert-danger">{{ flashMessage }}</p>
+    {% endfor %}
+    {% for flashMessage in app.session.flashbag.get('success') %}
+        <p class="alert alert-success">{{ flashMessage }}</p>
+    {% endfor %}
+
+{% endblock %}

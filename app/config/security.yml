@@ -52,6 +52,7 @@ security:
         - { path: ^/secured/account-details/, role: ROLE_USER }
         - { path: ^/secured/dashboard/, role: ROLE_USER }
         - { path: ^/secured/login/, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/secured/register/, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/secured/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/secured/check-facebook, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/secured/check-google, role: IS_AUTHENTICATED_ANONYMOUSLY }
