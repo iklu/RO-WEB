@@ -19,5 +19,10 @@ abstract class AbstractFrontController extends AbstractController implements Fro
     {
         return $this->getSecurityHelper()->getAuthenticatedClient();
     }
+
+    protected function getRegistrationForm(){
+        return $this->get("registration.form");
+    }
+    
     
 }

@@ -42,38 +42,8 @@ class SecurityController extends AbstractFrontController
             $response = new Response($e->getMessage());
            return $response;
         }
-
-        $response = [];
-        try{
-            // Create a client with a base URI
-            $client = new Client(['base_uri' => $this->getParameter("api_address")]);
-            $post  = $client->request("POST", 'account/register/', [
-                "form_params"=> [
-                    "username" => $request->request->get("username"),
-                    "email" => $request->request->get("email"),
-                    "password"=> $request->request->get("password"),
-                    "confirmPassword"=> $request->request->get("confirmPassword"),
-                ],
-                "headers"=>[
-                    "Accept" =>"application/json"
-                ]
-            ]);
-
-            if($post->getStatusCode() == Response::HTTP_OK && $post->hasHeader('Content-Length')){
-                $body = (string) $post->getBody()->getContents();
-                $response = \GuzzleHttp\json_decode($body , true);
-            }
-
-        } catch (RequestException $e) {
-            if ($e->hasResponse()) {
-                $body =   (string)($e->getResponse()->getBody()->getContents());
-                $response = \GuzzleHttp\json_decode($body , true);
-                $e->getResponse()->getHeader('content-type');
-               // $this->getFlashHelper()->addError($body);
-            }
-        }
+        $response = $this->getRegistrationForm()->submit($request);
         $this->params["response"] = $response;
- 
         return $this->render('FrontSecurityBundle:Security:register.html.twig', $this->params);
     }
 
@@ -125,10 +95,7 @@ class SecurityController extends AbstractFrontController
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
                 $stringBody =   (string)($e->getResponse()->getBody()->getContents());
-
                 $response = \GuzzleHttp\json_decode($stringBody , true);
-
-
             }
         }
 
