@@ -24,7 +24,7 @@ services:
     #provider2
     app.webservice_user_provider:
         class: Front\SecurityBundle\Security\User\WebserviceUserProvider
-        arguments: ["@app.api_service", "@app.user_session","@request_stack", "%api_address%",]
+        arguments: ["@app.api_service", "@app.user_session","@request_stack", "%api%",]
 
     app.security.api_user_authenticator:
         class: Front\SecurityBundle\Security\Authenticator\ApiAuthenticator

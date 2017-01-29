@@ -10,4 +10,4 @@ parameters:
     mailer_user: null
     mailer_password: null
     secret: ThisTokenIsNotSoSecretChangeIt
-    api_address: http://192.168.0.159/RO-API/web/api/
+    api_address: http://localhost/RO-API/web/api/

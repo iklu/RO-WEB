@@ -3,6 +3,7 @@
 namespace Front\SecurityBundle\Controller;
 
 use Front\CoreBundle\Controller\Front\AbstractFrontController;
+use Front\SecurityBundle\Form\Type\AdType;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,6 +27,12 @@ class SecurityController extends AbstractFrontController
      */
     public function registerAction(Request $request)
     {
+        $form    = $this->createForm("Front\SecurityBundle\Form\Type\RegisterType" , [],
+        array(
+            'action' => $this->generateUrl('secured_register'),
+            'method' => 'POST',
+            ));
+        $this->params['form'] = $form->createView();
         return $this->render('FrontSecurityBundle:Security:register.html.twig', $this->params);
     }
 
@@ -35,16 +42,10 @@ class SecurityController extends AbstractFrontController
      */
     public function securedRegisterAction(Request $request)
     {
-        try{
-            if(!$request->isMethod('POST'))
-                throw new AccessDeniedException("You are not allowed here");
-        }catch(AccessDeniedException $e){
-            $response = new Response($e->getMessage());
-           return $response;
+        if($request->isMethod('POST')){
+            $this->getRegistrationForm()->submit($request);
         }
-        $response = $this->getRegistrationForm()->submit($request);
-        $this->params["response"] = $response;
-        return $this->render('FrontSecurityBundle:Security:register.html.twig', $this->params);
+        return $this->redirectToRoute("register",array(), Response::HTTP_MOVED_PERMANENTLY);
     }
 
     /**
@@ -84,7 +85,7 @@ class SecurityController extends AbstractFrontController
         $body = "";
         try{
             // Create a client with a base URI
-            $client = new Client(['base_uri' => $this->getParameter("api_address")]);
+            $client = new Client(['base_uri' => $this->getParameter("api")["api_address"]]);
             // Send a request to https://foo.com/api/test
             $response = $client->get("cars/");
 

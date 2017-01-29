@@ -28,4 +28,6 @@ class AbstractController extends Controller
     {
         return $this->get('flash.helper');
     }
+
+
 }

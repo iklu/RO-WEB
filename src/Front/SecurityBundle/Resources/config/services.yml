@@ -1,4 +1,4 @@
 services:
     registration.form:
-        class: Front\SecurityBundle\Forms\RegistrationForm
-        arguments: ['@flash.helper']
+        class: Front\SecurityBundle\Form\RegistrationForm
+        arguments: ['@flash.helper','%api%']

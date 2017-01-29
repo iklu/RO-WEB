@@ -1,6 +1,6 @@
 <?php
 
-namespace Front\SecurityBundle\Forms;
+namespace Front\SecurityBundle\Form;
 use Front\CoreBundle\Helper\Flash\FlashHelperInterface;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
@@ -15,8 +15,13 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class RegistrationForm
 {
-    public function __construct(FlashHelperInterface $flashHelper)
+    private $flashHelper;
+    private $params;
+
+    public function __construct(FlashHelperInterface $flashHelper, $params)
     {
+        $this->flashHelper = $flashHelper;
+        $this->params = $params;
     }
 
     public function submit(Request $request){
@@ -24,14 +29,16 @@ class RegistrationForm
         $response = [];
 
         try{
+            print_r($request->request->get("register")["username"]) ;
+            exit;
             // Create a client with a base URI
-            $client = new Client(['base_uri' => $this->getParameter("api_address")]);
+            $client = new Client(['base_uri' => $this->params["api_address"]]);
             $post  = $client->request("POST", 'account/register/', [
                 "form_params"=> [
-                    "username" => $request->request->get("username"),
-                    "email" => $request->request->get("email"),
-                    "password"=> $request->request->get("password"),
-                    "confirmPassword"=> $request->request->get("confirmPassword"),
+                    "username" => $request->request->get("register"),
+                    "email" => $request->request->get("register[email]"),
+                    "password"=> $request->request->get("register[password]"),
+                    "confirmPassword"=> $request->request->get("register[confirmPassword]"),
                 ],
                 "headers"=>[
                     "Accept" =>"application/json"
@@ -48,10 +55,8 @@ class RegistrationForm
                 $body =   (string)($e->getResponse()->getBody()->getContents());
                 $response = \GuzzleHttp\json_decode($body , true);
                 $e->getResponse()->getHeader('content-type');
-                // $this->getFlashHelper()->addError($body);
+                $this->flashHelper->addError($body);
             }
         }
-
-        return $response;
     }
 }

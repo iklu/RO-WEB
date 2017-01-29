@@ -37,7 +37,7 @@ class ApiService
     {
         $this->container = $container;
         $this->request = $this->container->get("request_stack");
-        $this->api = $this->container->getParameter("api_address");
+        $this->api = $this->container->getParameter("api")["api_address"];
     }
 
     /**
