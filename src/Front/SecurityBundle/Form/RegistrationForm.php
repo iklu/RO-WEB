@@ -29,17 +29,10 @@ class RegistrationForm
         $response = [];
 
         try{
-            print_r($request->request->get("register")["username"]) ;
-            exit;
             // Create a client with a base URI
             $client = new Client(['base_uri' => $this->params["api_address"]]);
             $post  = $client->request("POST", 'account/register/', [
-                "form_params"=> [
-                    "username" => $request->request->get("register"),
-                    "email" => $request->request->get("register[email]"),
-                    "password"=> $request->request->get("register[password]"),
-                    "confirmPassword"=> $request->request->get("register[confirmPassword]"),
-                ],
+                "form_params"=> $request->request->get("register"),
                 "headers"=>[
                     "Accept" =>"application/json"
                 ]
@@ -48,13 +41,16 @@ class RegistrationForm
             if($post->getStatusCode() == Response::HTTP_OK && $post->hasHeader('Content-Length')){
                 $body = (string) $post->getBody()->getContents();
                 $response = \GuzzleHttp\json_decode($body , true);
+                $this->flashHelper->addSuccess($body);
             }
 
         } catch (RequestException $e) {
             if ($e->hasResponse()) {
-                $body =   (string)($e->getResponse()->getBody()->getContents());
-                $response = \GuzzleHttp\json_decode($body , true);
-                $e->getResponse()->getHeader('content-type');
+                if($e->getResponse()->getStatusCode() == Response::HTTP_OK){
+                    $body =   (string)($e->getResponse()->getBody()->getContents());
+                    $response = \GuzzleHttp\json_decode($body , true);
+                }
+
                 $this->flashHelper->addError($body);
             }
         }

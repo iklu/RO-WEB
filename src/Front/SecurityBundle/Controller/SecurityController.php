@@ -45,7 +45,7 @@ class SecurityController extends AbstractFrontController
         if($request->isMethod('POST')){
             $this->getRegistrationForm()->submit($request);
         }
-        return $this->redirectToRoute("register",array(), Response::HTTP_MOVED_PERMANENTLY);
+        return $this->redirectToRoute("login",array(), Response::HTTP_MOVED_PERMANENTLY);
     }
 
     /**
