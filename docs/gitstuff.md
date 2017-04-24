@@ -34,5 +34,4 @@ If any conflicts pop-up(hopefully not) make sure to resolve them in your editor 
 
 And thats about it :)
 
-PS. If something fails, this may work: [OhShitGit!](http://ohshitgit.com/)
-PSS. Ask around :)
+PS. If something fails, this may work: [OhShitGit!](http://ohshitgit.com/) or ask around :)
