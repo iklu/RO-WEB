@@ -8,5 +8,5 @@ Please run the following commands, to get the project up & runnin`:
 2. ```gulp build```
 3. ```gulp watch```
 
-Troubleshooting:
-* [github flow / cmds](https://github.com/ovidiubrunet/RO-WEB/blob/slicing/readme.md)
+Troubleshooting & How-to:
+* [github flow / cmds](https://github.com/ovidiubrunet/RO-WEB/blob/slicing/docs/gitstuff.md)
