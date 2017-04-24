@@ -1,16 +1,10 @@
-// gulp.task('css', function () {
-//     return 
-//         gulp.src( global.projectPaths.css.in + '*.scss' )
-//             .pipe( sass().on('error', sass.logError) )
-//             .pipe( postcss([autoprefixer, cssnano]) )
-//             .pipe( gulp.dest('./') );
-// });
+/*********************************
+ * CSS tasks: builder & watcher
+*********************************/
 
-//styles
+var sass = require('gulp-sass'); //nasty hack need to find a workaround ... maybe never :/
 
-var sass = require('gulp-sass'); //nasty hack need to be removed
-
-gulp.task('css', function (){
+gulp.task('build:css', function () {
 	return +
     gulp.src( global.projectPaths.css.in + '*.scss' )
         .pipe( $.sourcemaps.init() )
@@ -18,7 +12,17 @@ gulp.task('css', function (){
         .pipe( $.postcss([$.autoprefixer, $.cssnano]) )
         .pipe( $.sourcemaps.write() )
         .pipe( $.rename({ suffix: '.min' }) )
-        .pipe( gulp.dest('dist/css') )
+        .pipe( gulp.dest( global.projectPaths.css.out ) )
 });
 
-console.log(global.projectPaths.css.in);
+gulp.task('watch:css', function () {
+  return gulp.watch( global.projectPaths.css.out + '**/*.css', [ 'reload:css' ] );
+})
+
+gulp.task( 'watch:sass', function (){
+  return gulp.watch( global.projectPaths.css.in + '**/*.scss', [ 'build:css'] );
+});
+
+gulp.task('reload:css', function (){
+	return $.browserSync.reload( global.projectPaths.css.out + '**/*.css' );
+});

@@ -11,7 +11,7 @@ module.exports = {
 	},
 
 	'css': {
-		'in'  : globalAssetsLocation + 'sass/',
+		'in'  : globalAssetsLocation + 'scss/',
 		'out' : globalDistLocation   + 'css/'
 	}
 };

@@ -15,9 +15,11 @@ Please run the following commands, to get the project up & runnin`:
 Compiles sass files into css files to destination folder.
 * `gulp build:css`
 
-Watcher over sass / css files and runs the above command.
+Watcher just over sass / css files and runs the above command.
 * `gulp watch:css`
 
+Watcher just over sass / css files and runs the above command.
+* `gulp reload:css`
 
 ## Troubleshooting & How-to:
 * [github flow / cmds](https://github.com/ovidiubrunet/RO-WEB/blob/slicing/docs/gitstuff.md)
