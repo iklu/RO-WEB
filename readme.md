@@ -1,8 +1,8 @@
-## Slicing branch for RO-WEB project
+# Slicing branch for RO-WEB project
 
-### Usage
+## Usage
 
-#### Project Setup
+### Project Setup
 
 Please run the following commands, to get the project up & runnin`:
 
@@ -10,7 +10,7 @@ Please run the following commands, to get the project up & runnin`:
 2. ```gulp```
 3. ```gulp watch```
 
-#### Quick Debuging:
+### Quick Debuging:
 
 ** CSS stuff **
 
