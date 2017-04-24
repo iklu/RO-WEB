@@ -1,14 +1,17 @@
-var paths = {
-	'js': {
-		'in': '',
-		'out': ''
-	},
-	'css': {
-		'in': '',
-		'out': ''
-	}
-};
+var globalDistLocation = 'dist/';
+  globalAssetsLocation = 'assets/'
 
 module.exports = {
-	paths: paths
+  'dist'  : globalDistLocation,
+  'assets': globalAssetsLocation,
+
+	'js': {
+		'in'  : globalAssetsLocation + 'js/',
+		'out' : globalDistLocation   + 'js/'
+	},
+
+	'css': {
+		'in'  : globalAssetsLocation + 'sass/',
+		'out' : globalDistLocation   + 'css/'
+	}
 };

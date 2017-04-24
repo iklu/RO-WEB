@@ -1,5 +1,11 @@
+/*********************************
+ * Gulp integration
+ * v.0.0.1
+ * Slicing Branch Flavour
+*********************************/
+
 'use strict';
 
-var a = require('./gulp/config/_dep.js');
+require('./gulp/config/_dep.js');
 
-gulp.task('default', ['build:css']);
+gulp.task('default', ['init']);
