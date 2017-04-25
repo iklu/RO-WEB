@@ -1,5 +1,6 @@
 var globalDistLocation = 'dist/';
-  globalAssetsLocation = 'assets/'
+  globalAssetsLocation = 'assets/',
+  globalRootLocation = './';
 
 module.exports = {
   'dist'  : globalDistLocation,

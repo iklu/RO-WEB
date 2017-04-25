@@ -18,8 +18,14 @@ Compiles sass files into css files to destination folder.
 Watcher just over sass / css files and runs the above command.
 * `gulp watch:css`
 
-Watcher just over sass / css files and runs the above command.
-* `gulp reload:css`
+**JS stuff**
+
+Compiles js files into css files to destination folder.
+* `gulp build:js`
+
+Watcher just over js files and runs the above command.
+* `gulp watch:js`
+
 
 ## Troubleshooting & How-to:
 * [github flow / cmds](https://github.com/ovidiubrunet/RO-WEB/blob/slicing/docs/gitstuff.md)

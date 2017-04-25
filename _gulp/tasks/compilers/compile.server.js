@@ -3,9 +3,10 @@
 *************************************/
 
 gulp.task('build:server', function () {
-    return $.browserSync.init({
-        server: {
-            baseDir: "./"
-        }
-    });
+    return +
+      $.browserSync.init({
+          server: {
+              baseDir: './'
+          }
+      });
 });

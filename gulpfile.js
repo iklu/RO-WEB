@@ -1,11 +1,12 @@
 /*********************************
- * Gulp integration
+ * Gulp Squish
  * v.0.0.1
- * Slicing Branch Flavour
+ * RemusGLS
+ * Simple gulp compile receipe
 *********************************/
 
 'use strict';
 
-require('./gulp/config/_dep.js');
+require('./_gulp/config/_dep.js');
 
 gulp.task('default', ['init']);

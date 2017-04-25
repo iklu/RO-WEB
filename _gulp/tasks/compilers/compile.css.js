@@ -1,5 +1,5 @@
 /*********************************
- * CSS tasks: builder & watcher
+ * CSS task: builder
 *********************************/
 
 var sass = require('gulp-sass'); //nasty hack need to find a workaround ... maybe never :/
@@ -15,14 +15,3 @@ gulp.task('build:css', function () {
         .pipe( gulp.dest( global.projectPaths.css.out ) )
 });
 
-gulp.task('watch:css', function () {
-  return gulp.watch( global.projectPaths.css.out + '**/*.css', [ 'reload:css' ] );
-})
-
-gulp.task( 'watch:sass', function (){
-  return gulp.watch( global.projectPaths.css.in + '**/*.scss', [ 'build:css'] );
-});
-
-gulp.task('reload:css', function (){
-	return $.browserSync.reload( global.projectPaths.css.out + '**/*.css' );
-});

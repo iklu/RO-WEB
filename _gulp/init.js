@@ -9,4 +9,4 @@
  * CSS task runners
 *********************************/
 
-gulp.task('init', ['build:server']);
+gulp.task('init', ['build']);
