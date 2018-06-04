@@ -1,0 +1,33 @@
+<form
+  #authForm
+  (ngSubmit)="authSubmit()"
+  class="auth-form auth-form--login">
+
+  <label for="username"
+    class="auth-form__item">
+    <input type="text"
+           id="username"
+           name="username"
+           class="auth-form-input"
+           [(ngModel)]="loginUserName"
+           placeholder="User Name" />
+  </label>
+
+  <label for="password"
+    class="auth-form__item">
+    <input type="password"
+           id="password"
+           name="username"
+           class="auth-form-input"
+           [(ngModel)]="loginPassword"
+           placeholder="Password" />
+  </label>
+
+  <div class="auth-form__item auth-form__item--submit">
+    <button type="submit"
+            [disabled]="isLoading || !loginUserName || !loginPassword">
+      Submit
+    </button>
+  </div>
+
+</form>

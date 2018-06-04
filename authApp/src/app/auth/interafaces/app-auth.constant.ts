@@ -1,0 +1,21 @@
+export class AppAuthConstant {
+  static readonly BASE_URL: '';
+
+  //login stuff
+  static readonly LOGIN = {
+    API_URL: 'https://morning-sierra-30833.herokuapp.com/oauth/token',
+    GRANT_TYPE: 'password',
+    PROJECT_KEY: 'projectstartup'
+  };
+
+  static readonly LOGIN_URL: string = 'https://morning-sierra-30833.herokuapp.com/oauth/token';
+  static readonly REGISTER_URL: '';
+  static readonly RESET_PASS: '';
+  static readonly SERVICE_STATUS_MESSAGES = {
+    ERROR: 'Error in service: ',
+    SUCCESS: 'Service success: '
+  }
+
+}
+
+

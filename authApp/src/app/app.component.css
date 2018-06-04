@@ -1,0 +1,13 @@
+.container {
+  max-width: 1140px;
+  margin: auto;
+}
+
+auth-login::ng-deep label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+auth-login::ng-deep label input {
+  padding: 5px;
+}
