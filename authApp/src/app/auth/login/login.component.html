@@ -3,29 +3,39 @@
   (ngSubmit)="authSubmit()"
   class="auth-form auth-form--login">
 
+  <div class="auth-form__error-container" *ngIf="error.show">
+    {{ error.message }}
+  </div>
+
+  <div class="auth-form__loading-container" *ngIf="loading.show">
+    Loading ...
+  </div>
+
   <label for="username"
-    class="auth-form__item">
+         class="auth-form__item">
     <input type="text"
            id="username"
            name="username"
            class="auth-form-input"
+           (keyup)="error.show = false"
            [(ngModel)]="loginUserName"
            placeholder="User Name" />
   </label>
 
   <label for="password"
-    class="auth-form__item">
+         class="auth-form__item">
     <input type="password"
            id="password"
            name="username"
            class="auth-form-input"
+           (keyup)="error.show = false"
            [(ngModel)]="loginPassword"
            placeholder="Password" />
   </label>
 
   <div class="auth-form__item auth-form__item--submit">
     <button type="submit"
-            [disabled]="isLoading || !loginUserName || !loginPassword">
+            [disabled]="loading.show || !loginUserName || !loginPassword">
       Submit
     </button>
   </div>

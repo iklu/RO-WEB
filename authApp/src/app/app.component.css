@@ -3,11 +3,13 @@
   margin: auto;
 }
 
+auth-register::ng-deep label,
 auth-login::ng-deep label {
   display: block;
   margin-bottom: 10px;
 }
 
+auth-register::ng-deep label input,
 auth-login::ng-deep label input {
   padding: 5px;
 }

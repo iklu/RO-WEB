@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { of } from "rxjs/internal/observable/of";
-import { AppAuthLoginInterface } from "../interafaces/app-auth.interface";
+import {AppAuthLoginInterface, AppAuthRegisterInterface} from "../interafaces/app-auth.interface";
 
 @Injectable()
 
@@ -18,10 +18,12 @@ export class AppAuthLoginService {
 
     headers = headers
                 .set('Content-Type','application/x-www-form-urlencoded')
-                .set('Authorization', 'Basic ' + btoa(`${credentials.project_key}:${credentials.password}`));
+                .set('Authorization', 'Basic ' + btoa(
+                  `${AppAuthConstant.LOGIN.PROJECT_KEY}:${AppAuthConstant.LOGIN.PROJECT_AUTH_TYPE}`
+                ));
 
     bodyData = bodyData
-                .set('grant_type', credentials.grant_type)
+                .set('grant_type', AppAuthConstant.LOGIN.GRANT_TYPE)
                 .set('username', credentials.username)
                 .set('password', credentials.password);
 
@@ -36,18 +38,23 @@ export class AppAuthLoginService {
   }
 
 
-  register(): Observable<any> {
-    let apiUrl = 'https://morning-sierra-30833.herokuapp.com/api/user/registration';
+  register(credentials: AppAuthRegisterInterface): Observable<any> {
 
-    return this.http.post(apiUrl, {
-      "email": "suvaialaremus@gmail.com",
-      "firstName": "remus",
-      "lastName": "george",
-      "password": "123456",
-      "username": "georgel"
-    })
+    const apiUrl: string = AppAuthConstant.REGISTER.API_URL;
+
+    const body: AppAuthRegisterInterface= {
+      email: credentials.email,
+      firstName: credentials.firstName,
+      lastName: credentials.lastName,
+      username: credentials.username,
+      password: credentials.password
+    };
+
+
+    return this.http.post(apiUrl, body)
       .pipe(catchError(error => {
-        console.warn('Shit happens:', error);
+        console.log(AppAuthConstant.SERVICE_STATUS_MESSAGES.ERROR, error);
+
         return of(error);
       }))
   }

@@ -15,7 +15,10 @@
         Login component
       </h5>
 
-      <auth-login [errorMessage]="'Please try again'"></auth-login>
+      <auth-login
+        (authLoginStatus)="checkAuthStatus($event)"
+        [errorMessage]="'Please try again'">
+      </auth-login>
 
       <br>
 
@@ -23,7 +26,10 @@
         Register Component
       </h5>
 
-      <auth-register></auth-register>
+      <auth-register>
+        (authRegisterStatus)="checkAuthStatus($event)"
+        [errorMessage]="'Please try again'">
+      </auth-register>
     </div>
 
 

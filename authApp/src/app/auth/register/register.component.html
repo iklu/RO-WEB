@@ -1,50 +1,67 @@
-<h4>
-  Register form
-</h4>
-
 <form
   #registerForm
   (ngSubmit)="registerSubmit()"
-  class="register">
+  class="auth-form auth-form--register">
 
-  <div *ngIf="err" class="auth-form-error">
-
+  <div class="auth-form__error-container" *ngIf="error.show">
+    {{ error.message }}
   </div>
 
-  <input type="text"
-         class="auth-form-input"
-         name="userName"
-         [(ngModel)]="registerUserName"
-         (blur)="checkUserName()"
-         placeholder="Username"
-         required/>
-  <span *ngIf="userNameUnique" #authUserNameExistance>
-    User <strong>{{registerUserName}}</strong> can be used
-  </span>
+  <div class="auth-form__loading-container" *ngIf="loading.show">
+    Loading ...
+  </div>
 
-  <input type="text"
-         class="auth-form-input"
-         name="firstName"
-         [(ngModel)]="registerFirstName"
-         placeholder="First Name" />
+  <label for="register_userName"
+         class="auth-form__item">
+    <input type="text"
+           id="register_userName"
+           name="register_userName"
+           class="auth-form-input"
+           [(ngModel)]="registerUserName"
+           placeholder="User Name" />
+  </label>
 
-  <input type="text"
-         class="auth-form-input"
-         name="lastName"
-         [(ngModel)]="registerLastName"
-         placeholder="Last Name" />
+  <label for="register_email"
+         class="auth-form__item">
+    <input type="text"
+           id="register_email"
+           name="register_email"
+           class="auth-form-input"
+           [(ngModel)]="registerEmail"
+           placeholder="Email address" />
+  </label>
 
-  <input type="password"
-         class="auth-form-input"
-         name="password"
-         [(ngModel)]="registerPassword"
-         placeholder="Password"/>
+  <label for="register_firstName"
+         class="auth-form__item">
+    <input type="text"
+           id="register_firstName"
+           name="register_firstName"
+           class="auth-form-input"
+           [(ngModel)]="registerFirstName"
+           placeholder="First Name" />
+  </label>
 
-  <button type="submit" [disabled]="registerFormIsValid">
+  <label for="register_lastName"
+         class="auth-form__item">
+    <input type="text"
+           id="register_lastName"
+           name="register_lastName"
+           class="auth-form-input"
+           [(ngModel)]="registerLastName"
+           placeholder="Last Name" />
+  </label>
+
+  <label for="register_password"
+         class="auth-form__item">
+    <input type="password"
+           id="register_password"
+           name="register_password"
+           class="auth-form-input"
+           [(ngModel)]="registerPassword"
+           placeholder="Password" />
+  </label>
+
+  <button type="submit" [disabled]="!checkInputsReady()">
     Submit
   </button>
-
-  <div class="">
-
-  </div>
 </form>

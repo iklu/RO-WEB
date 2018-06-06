@@ -5,7 +5,13 @@ export class AppAuthConstant {
   static readonly LOGIN = {
     API_URL: 'https://morning-sierra-30833.herokuapp.com/oauth/token',
     GRANT_TYPE: 'password',
-    PROJECT_KEY: 'projectstartup'
+    PROJECT_KEY: 'projectstartup',
+    PROJECT_AUTH_TYPE: 'parola'
+  };
+
+  //register stuff
+  static readonly REGISTER = {
+    API_URL: 'https://morning-sierra-30833.herokuapp.com/api/user/registration'
   };
 
   static readonly LOGIN_URL: string = 'https://morning-sierra-30833.herokuapp.com/oauth/token';
