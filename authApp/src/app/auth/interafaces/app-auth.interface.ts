@@ -15,3 +15,10 @@ export interface AppAuthRegisterInterface {
   firstName: string;
   lastName: string;
 }
+
+export interface AppAuhRegisterBehaviourInterface {
+  show: boolean;
+  message?: string;
+  messageExistingUsername?: string;
+  messageExistingEmailAddress?: string;
+}

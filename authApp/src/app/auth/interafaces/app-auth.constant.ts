@@ -11,7 +11,11 @@ export class AppAuthConstant {
 
   //register stuff
   static readonly REGISTER = {
-    API_URL: 'https://morning-sierra-30833.herokuapp.com/api/user/registration'
+    API_URL: 'https://morning-sierra-30833.herokuapp.com/api/user/registration',
+    CHECK_STATUS: 'https://morning-sierra-30833.herokuapp.com/api/user',
+    MIN_CHARS: {
+      USERNAME: 4
+    }
   };
 
   static readonly LOGIN_URL: string = 'https://morning-sierra-30833.herokuapp.com/oauth/token';

@@ -17,8 +17,32 @@
            id="register_userName"
            name="register_userName"
            class="auth-form-input"
+           input-idle
+           (inputStatus)="checkStatus($event)"
+           [inputType]="'username'"
            [(ngModel)]="registerUserName"
            placeholder="User Name" />
+
+    <span *ngIf="errorMinChars">
+      Not enough chars! 4 mins
+    </span>
+
+    <span *ngIf="errorLoading">
+      Loading...
+    </span>
+
+    <span *ngIf="errorMaxChars">
+      Max chars error!!!
+    </span>
+
+    <span *ngIf="errorNotAllowed">
+      No space pleases
+    </span>
+
+    <span *ngIf="userNameSucces">
+      Username is available!
+    </span>
+
   </label>
 
   <label for="register_email"
@@ -27,6 +51,7 @@
            id="register_email"
            name="register_email"
            class="auth-form-input"
+           [ngClass]="{'has-error': hasError }"
            [(ngModel)]="registerEmail"
            placeholder="Email address" />
   </label>

@@ -5,6 +5,7 @@ import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { of } from "rxjs/internal/observable/of";
 import {AppAuthLoginInterface, AppAuthRegisterInterface} from "../interafaces/app-auth.interface";
+import {InputIdleInterface} from "../../shared/directives/input-idle.interface";
 
 @Injectable()
 
@@ -37,7 +38,6 @@ export class AppAuthLoginService {
       )
   }
 
-
   register(credentials: AppAuthRegisterInterface): Observable<any> {
 
     const apiUrl: string = AppAuthConstant.REGISTER.API_URL;
@@ -52,6 +52,22 @@ export class AppAuthLoginService {
 
 
     return this.http.post(apiUrl, body)
+      .pipe(catchError(error => {
+        console.log(AppAuthConstant.SERVICE_STATUS_MESSAGES.ERROR, error);
+
+        return of(error);
+      }))
+  }
+
+  checkCredentials(credentials): Observable<any> {
+    let apiUrl: string = `${AppAuthConstant.REGISTER.CHECK_STATUS}/${credentials.type}-exists/`;
+    let body = {
+      params: {
+        [credentials.type]: credentials.value
+      }
+    };
+
+    return this.http.get(apiUrl, body)
       .pipe(catchError(error => {
         console.log(AppAuthConstant.SERVICE_STATUS_MESSAGES.ERROR, error);
 
