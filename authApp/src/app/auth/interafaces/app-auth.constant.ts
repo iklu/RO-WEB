@@ -1,9 +1,10 @@
 export class AppAuthConstant {
-  static readonly BASE_URL: '';
+
+  static readonly BASE_URL: string = 'http://86.124.155.72:9000';
 
   //login stuff
   static readonly LOGIN = {
-    API_URL: 'https://morning-sierra-30833.herokuapp.com/oauth/token',
+    API_URL: `${AppAuthConstant.BASE_URL}/oauth/token`,
     GRANT_TYPE: 'password',
     PROJECT_KEY: 'projectstartup',
     PROJECT_AUTH_TYPE: 'parola'
@@ -11,16 +12,13 @@ export class AppAuthConstant {
 
   //register stuff
   static readonly REGISTER = {
-    API_URL: 'https://morning-sierra-30833.herokuapp.com/api/user/registration',
-    CHECK_STATUS: 'https://morning-sierra-30833.herokuapp.com/api/user',
+    API_URL: `${AppAuthConstant.BASE_URL}/api/user/registration`,
+    CHECK_STATUS: `${AppAuthConstant.BASE_URL}/api/user`,
     MIN_CHARS: {
       USERNAME: 4
     }
   };
 
-  static readonly LOGIN_URL: string = 'https://morning-sierra-30833.herokuapp.com/oauth/token';
-  static readonly REGISTER_URL: '';
-  static readonly RESET_PASS: '';
   static readonly SERVICE_STATUS_MESSAGES = {
     ERROR: 'Error in service: ',
     SUCCESS: 'Service success: '

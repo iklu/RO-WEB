@@ -11,6 +11,7 @@ export interface AppAuhLoginBehaviourInterface {
 export interface AppAuthRegisterInterface {
   username: string;
   password: string;
+  matchingPassword: string;
   email: string;
   firstName: string;
   lastName: string;
@@ -21,4 +22,12 @@ export interface AppAuhRegisterBehaviourInterface {
   message?: string;
   messageExistingUsername?: string;
   messageExistingEmailAddress?: string;
+}
+
+export interface AppAuthInterfaceLoginSuccessEvent {
+  access_token: string;
+  expires_in: number;
+  scope: string;
+  token_type: string;
+  userName: string;
 }

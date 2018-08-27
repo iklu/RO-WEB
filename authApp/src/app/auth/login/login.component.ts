@@ -3,7 +3,10 @@ import { Subject } from 'rxjs/internal/Subject';
 import { takeUntil} from 'rxjs/operators';
 
 import { AppAuthLoginService } from './../services/app-auth.login.service';
-import { AppAuthLoginInterface, AppAuhLoginBehaviourInterface} from '../interafaces/app-auth.interface';
+import {
+  AppAuthLoginInterface, AppAuhLoginBehaviourInterface,
+  AppAuthInterfaceLoginSuccessEvent
+} from '../interafaces/app-auth.interface';
 
 
 @Component({
@@ -14,6 +17,7 @@ import { AppAuthLoginInterface, AppAuhLoginBehaviourInterface} from '../interafa
 export class AuthLoginComponent implements OnInit, OnDestroy {
 
   @Input() errorMessage: string;
+  @Input() instanceName: string;
 
   @Output() authLoginStatus: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,7 +35,13 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
 
   private ngUnsubscribe: Subject<any> = new Subject();
 
-  constructor(private appAuthLoghinService: AppAuthLoginService) { }
+  constructor(private appAuthLoghinService: AppAuthLoginService) {
+    if (!this.instanceName) {
+      this.instanceName = Math.floor((1 + Math.random()) * 0x10000)
+                              .toString(16)
+                              .substring(1);
+    }
+  }
 
   ngOnInit() {
   }
@@ -51,16 +61,18 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
 
     this.appAuthLoghinService.login(credentials)
       .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe((res) => {
-        if (res && res.error) {
-          this.error.show = true;
-        }
-
+      .subscribe((res: AppAuthInterfaceLoginSuccessEvent) => {
         // send over to parent component auth status whatever it may be
+        res.userName = this.loginUserName;
+
         this.authLoginStatus.emit(res);
 
         // hide loading status
         this.loading.show = false;
+      }, (error) => {
+        this.error.show = true;
+
+        this.errorMessage = error;
       })
 
   }
@@ -70,3 +82,4 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
     this.ngUnsubscribe.complete();
   }
 }
+

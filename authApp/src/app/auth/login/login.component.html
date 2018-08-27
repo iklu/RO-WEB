@@ -11,22 +11,22 @@
     Loading ...
   </div>
 
-  <label for="username"
+  <label for="username--{{instanceName}}"
          class="auth-form__item">
     <input type="text"
-           id="username"
-           name="username"
+           id="username--'{{instanceName}}'"
+           name="username--'{{instanceName}}'"
            class="auth-form-input"
            (keyup)="error.show = false"
            [(ngModel)]="loginUserName"
            placeholder="User Name" />
   </label>
 
-  <label for="password"
+  <label for="password--{{instanceName}}"
          class="auth-form__item">
     <input type="password"
-           id="password"
-           name="username"
+           id="password--{{instanceName}}"
+           name="password--{{instanceName}}"
            class="auth-form-input"
            (keyup)="error.show = false"
            [(ngModel)]="loginPassword"

@@ -8,13 +8,16 @@ import { AppAuthLoginService } from "./auth/services/app-auth.login.service";
 import { HttpClientModule} from "@angular/common/http";
 import { AuthRegisterComponent } from "./auth/register/register.component";
 import { InputIdleDirective } from "./shared/directives/input-idle.directive";
-import {InputValidationDirective} from "./shared/directives/input-validation.directive";
+import { InputValidationDirective } from "./shared/directives/input-validation.directive";
+import { ChatboxComponent } from './communication/chatbox/chatbox.component';
+import {SocketService} from './communication/services/plugInSocket.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLoginComponent,
     AuthRegisterComponent,
+    ChatboxComponent,
     InputIdleDirective,
     InputValidationDirective
   ],
@@ -24,7 +27,8 @@ import {InputValidationDirective} from "./shared/directives/input-validation.dir
     FormsModule
   ],
   providers: [
-    AppAuthLoginService
+    AppAuthLoginService,
+    SocketService
   ],
   bootstrap: [AppComponent]
 })

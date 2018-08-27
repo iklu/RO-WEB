@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject } from "rxjs/internal/Subject";
-import { takeUntil} from 'rxjs/operators';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/operators';
 
 import { AppAuthLoginService } from "./../services/app-auth.login.service";
 import {
@@ -9,7 +9,7 @@ import {
   AppAuthRegisterInterface
 } from "../interafaces/app-auth.interface";
 import {AppAuthConstant} from "../interafaces/app-auth.constant";
-import {InputStatus, InputValidationEvent} from "./register.defaults";
+import {InputValidationEvent} from "./register.defaults";
 
 @Component({
   selector: 'auth-register',
@@ -26,6 +26,7 @@ export class AuthRegisterComponent implements OnInit, OnDestroy {
   registerUserName: string;
   registerEmail: string;
   registerPassword: string;
+  checkRegisterPassword: string;
   registerFirstName: string;
   registerLastName: string;
   registerUserNameMinChars: number = AppAuthConstant.REGISTER.MIN_CHARS.USERNAME;
@@ -45,7 +46,7 @@ export class AuthRegisterComponent implements OnInit, OnDestroy {
 
   checkUsernameInputStatus: any = {};
 
-  inputStatus = InputValidationEvent;
+  inputStatus: InputValidationEvent;
 
   loading: AppAuhLoginBehaviourInterface = {
     show: false
@@ -70,6 +71,7 @@ export class AuthRegisterComponent implements OnInit, OnDestroy {
     let credentials: AppAuthRegisterInterface = {
       username: this.registerUserName,
       password: this.registerPassword,
+      matchingPassword: this.checkRegisterPassword,
       email: this.registerEmail,
       firstName: this.registerFirstName,
       lastName: this.registerLastName
@@ -93,10 +95,12 @@ export class AuthRegisterComponent implements OnInit, OnDestroy {
   }
 
   checkInputsReady() {
-    return this.checkUsernameInputStatus.data=== 'idle'  &&
+    return this.inputStatus &&
+           this.inputStatus.status === 'idle'  &&
            this.registerFirstName &&
            this.registerLastName &&
            this.registerPassword &&
+           this.checkRegisterPassword &&
            this.registerUserName &&
            this.registerEmail;
   }
@@ -118,8 +122,6 @@ export class AuthRegisterComponent implements OnInit, OnDestroy {
     this.errorLoading = false;
     this.userNameSucces = false;
 
-    console.log('v', this.haha.test1);
-
     if (!this.inputStatus) {
       return;
     }
@@ -139,7 +141,7 @@ export class AuthRegisterComponent implements OnInit, OnDestroy {
       }
     }
 
-    if (this.inputStatus.inputType ||
+    if (!this.inputStatus.inputType ||
         this.inputStatus.hasError ||
         this.inputStatus.status !== 'idle') {
       return;

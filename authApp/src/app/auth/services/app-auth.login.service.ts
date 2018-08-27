@@ -47,7 +47,8 @@ export class AppAuthLoginService {
       firstName: credentials.firstName,
       lastName: credentials.lastName,
       username: credentials.username,
-      password: credentials.password
+      password: credentials.password,
+      matchingPassword: credentials.matchingPassword
     };
 
 

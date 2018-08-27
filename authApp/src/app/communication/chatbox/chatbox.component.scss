@@ -1,0 +1,43 @@
+.chatbox__label {
+  display: block;
+
+  textarea,
+  input {
+    width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+    min-height: 200px;
+    max-height: 200px;
+  }
+}
+
+.chatbox__wrapper,
+.chatbox__bubble {
+  display: flex;
+}
+
+.chatbox__wrapper {
+  flex-wrap: wrap;
+}
+
+
+.chatbox__bubble {
+  width: 100%;
+  align-items: center;
+
+  .chatbox__avatar {
+    width: 70px;
+    height: 70px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .chatbox__message {
+    margin: 0;
+  }
+}

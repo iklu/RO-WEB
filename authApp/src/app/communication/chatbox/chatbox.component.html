@@ -1,0 +1,43 @@
+<auth-login *ngIf="true"
+  (authLoginStatus)="checkLoginStatus($event)">
+</auth-login>
+
+<div class="chatbox__messaging">
+  <!--<label class="chatbox__label"-->
+         <!--for="chatbox_messageCollector">-->
+          <!--<textarea class="chatbox__field chatbox__field&#45;&#45;messages"-->
+                    <!--id="chatbox_messageCollector"-->
+                    <!--placeholder="Messages!"-->
+                    <!--name="chatbox_messageCollector"-->
+                    <!--[(ngModel)] = "chatboxMessageCollector">-->
+          <!--</textarea>-->
+  <!--</label>-->
+
+  <div *ngIf="chatboxMessageCollector">
+    <div *ngFor="let chatMessage of chatboxMessageCollector" class="chatbox__wrapper">
+      <div class="chatbox__bubble" [ngClass]="{'chatbox__bubble--isOwner': chatMessage.isOwner}">
+        <div class="chatbox__avatar">
+          <img [src]="chatMessage.payload.user.avatar" alt="chatbox avatar"/>
+        </div>
+
+        <p class="chatbox__message">
+          {{chatMessage.payload.message}}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <label class="chatbox__label"
+         for="chatbox_message">
+    <input class="chatbox__field"
+           id="chatbox_message"
+           placeholder="message to send"
+           name="chatbox_message"
+           [(ngModel)] = "chatboxMessage"/>
+  </label>
+
+
+  <button type="button" (click)="sendMessage()" [disabled]="!chatboxMessage">
+    Send message
+  </button>
+</div>
