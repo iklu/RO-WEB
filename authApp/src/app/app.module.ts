@@ -11,6 +11,8 @@ import { InputIdleDirective } from "./shared/directives/input-idle.directive";
 import { InputValidationDirective } from "./shared/directives/input-validation.directive";
 import { ChatboxComponent } from './communication/chatbox/chatbox.component';
 import {SocketService} from './communication/services/plugInSocket.service';
+import {ShowPasswordDirective} from './shared/directives/show-password/show-password.directive';
+import {InputPasswordComponent} from './auth/input/password/input.password.component';
 
 @NgModule({
   declarations: [
@@ -18,8 +20,10 @@ import {SocketService} from './communication/services/plugInSocket.service';
     AuthLoginComponent,
     AuthRegisterComponent,
     ChatboxComponent,
+    InputPasswordComponent,
     InputIdleDirective,
-    InputValidationDirective
+    InputValidationDirective,
+    ShowPasswordDirective
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,7 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
 
   @Input() errorMessage: string;
   @Input() instanceName: string;
+  @Input() showPassword: boolean;
 
   @Output() authLoginStatus: EventEmitter<any> = new EventEmitter<any>();
 
@@ -44,6 +45,10 @@ export class AuthLoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+  }
+
+  checkInputStatus(event) {
+    console.log('aaa', this.loginPassword);
   }
 
   authSubmit() {

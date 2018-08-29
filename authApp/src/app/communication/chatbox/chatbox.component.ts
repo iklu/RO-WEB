@@ -25,7 +25,9 @@ export class ChatboxComponent {
   chatboxMessage: string = '';
 
   constructor(private socketOne: SocketService) {
-
+    this.socketOne.test.subscribe((val) => {
+      console.log('behaviour is', val)
+    })
   }
 
   checkLoginStatus(event) {
@@ -36,7 +38,6 @@ export class ChatboxComponent {
       uuid: this.create_UUID(),
       userName: event.userName,
       url: CommunicationConstants.CHATBOX_SOCKET_URL
-    }).subscribe((event) => {
     });
 
     this.socketOne.initSocket({
@@ -44,17 +45,6 @@ export class ChatboxComponent {
       userName: event.userName,
       url: CommunicationConstants.CHATBOX_SOCKET_URL,
       outbound: true
-    }).subscribe((event) => {
-      if (!event) {
-        return;
-      }
-
-      event.isOwner = this.credentials.userName === event.payload.user.alias;
-
-      console.log(event);
-
-      this.chatboxMessageCollector.push(event);
-
     })
 
 

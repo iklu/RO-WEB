@@ -1,6 +1,6 @@
 export class AppAuthConstant {
 
-  static readonly BASE_URL: string = 'http://86.124.155.72:9000';
+  static readonly BASE_URL: string = 'http://79.112.17.87:9001';
 
   //login stuff
   static readonly LOGIN = {
